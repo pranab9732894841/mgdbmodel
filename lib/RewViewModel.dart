@@ -1,24 +1,24 @@
 import 'dart:convert';
 
-class Rating {
+class RewViewModel {
   double value;
-  String comment;
-  String createdAt;
-  String updatedAt;
-  Rating({
-    required this.value,
-    required this.comment,
-    required this.createdAt,
-    required this.updatedAt,
+  String? comment;
+  String? createdAt;
+  String? updatedAt;
+  RewViewModel({
+    this.value = 0.0,
+    this.comment,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  Rating copyWith({
+  RewViewModel copyWith({
     double? value,
     String? comment,
     String? createdAt,
     String? updatedAt,
   }) {
-    return Rating(
+    return RewViewModel(
       value: value ?? this.value,
       comment: comment ?? this.comment,
       createdAt: createdAt ?? this.createdAt,
@@ -30,36 +30,43 @@ class Rating {
     final result = <String, dynamic>{};
 
     result.addAll({'value': value});
-    result.addAll({'comment': comment});
-    result.addAll({'createdAt': createdAt});
-    result.addAll({'updatedAt': updatedAt});
+    if (comment != null) {
+      result.addAll({'comment': comment});
+    }
+    if (createdAt != null) {
+      result.addAll({'createdAt': createdAt});
+    }
+    if (updatedAt != null) {
+      result.addAll({'updatedAt': updatedAt});
+    }
 
     return result;
   }
 
-  factory Rating.fromMap(Map<String, dynamic> map) {
-    return Rating(
+  factory RewViewModel.fromMap(Map<String, dynamic> map) {
+    return RewViewModel(
       value: map['value']?.toDouble() ?? 0.0,
-      comment: map['comment'] ?? '',
-      createdAt: map['createdAt'] ?? '',
-      updatedAt: map['updatedAt'] ?? '',
+      comment: map['comment'],
+      createdAt: map['createdAt'],
+      updatedAt: map['updatedAt'],
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Rating.fromJson(String source) => Rating.fromMap(json.decode(source));
+  factory RewViewModel.fromJson(String source) =>
+      RewViewModel.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'Rating(value: $value, comment: $comment, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'RewViewModel(value: $value, comment: $comment, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Rating &&
+    return other is RewViewModel &&
         other.value == value &&
         other.comment == comment &&
         other.createdAt == createdAt &&
