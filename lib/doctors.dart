@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mgdbmodel/Rating.dart';
 
 import 'config/Qualification.dart';
 import 'config/Specialization.dart';
@@ -22,6 +23,8 @@ class Doctor {
   String? uuid;
   String? categoryId;
   String? registration;
+  Rating? rating;
+  List<String>? clinicIds;
   Doctor({
     required this.name,
     this.images,
@@ -39,6 +42,8 @@ class Doctor {
     this.uuid,
     this.categoryId,
     this.registration,
+    this.rating,
+    this.clinicIds,
   });
 
   Map<String, dynamic> toMap() {
@@ -88,7 +93,12 @@ class Doctor {
     if (registration != null) {
       result.addAll({'registration': registration});
     }
-
+    if (rating != null) {
+      result.addAll({'rating': rating!.toMap()});
+    }
+    if (clinicIds != null) {
+      result.addAll({'clinicIds': clinicIds});
+    }
     return result;
   }
 
@@ -118,6 +128,8 @@ class Doctor {
       uuid: map['uuid'],
       categoryId: map['categoryId'],
       registration: map['registration'],
+      rating: map['rating'] != null ? Rating.fromMap(map['rating']) : null,
+      clinicIds: List<String>.from(map['clinicIds']),
     );
   }
 
@@ -163,6 +175,12 @@ class Doctor {
           : null,
       registration: doc.data().toString().contains('registration')
           ? doc.get('registration')
+          : null,
+      rating: doc.data().toString().contains('rating')
+          ? Rating.fromMap(doc.get('rating'))
+          : null,
+      clinicIds: doc.data().toString().contains('clinicIds')
+          ? List<String>.from(doc.get('clinicIds'))
           : null,
     );
   }
