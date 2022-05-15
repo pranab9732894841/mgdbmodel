@@ -12,6 +12,8 @@ class DocSchedule {
   String endDate;
   String startTime;
   String endTime;
+  double doctorFees;
+  int patientCount;
   List<String> repeatWeekdays;
   DocSchedule({
     required this.uiid,
@@ -23,6 +25,8 @@ class DocSchedule {
     required this.endDate,
     required this.startTime,
     required this.endTime,
+    required this.doctorFees,
+    required this.patientCount,
     required this.repeatWeekdays,
   });
 
@@ -36,6 +40,8 @@ class DocSchedule {
     String? endDate,
     String? startTime,
     String? endTime,
+    double? doctorFees,
+    int? patientCount,
     List<String>? repeatWeekdays,
   }) {
     return DocSchedule(
@@ -48,6 +54,8 @@ class DocSchedule {
       endDate: endDate ?? this.endDate,
       startTime: startTime ?? this.startTime,
       endTime: endTime ?? this.endTime,
+      doctorFees: doctorFees ?? this.doctorFees,
+      patientCount: patientCount ?? this.patientCount,
       repeatWeekdays: repeatWeekdays ?? this.repeatWeekdays,
     );
   }
@@ -64,6 +72,8 @@ class DocSchedule {
     result.addAll({'endDate': endDate});
     result.addAll({'startTime': startTime});
     result.addAll({'endTime': endTime});
+    result.addAll({'doctorFees': doctorFees});
+    result.addAll({'patientCount': patientCount});
     result.addAll({'repeatWeekdays': repeatWeekdays});
 
     return result;
@@ -80,6 +90,8 @@ class DocSchedule {
       endDate: map['endDate'] ?? '',
       startTime: map['startTime'] ?? '',
       endTime: map['endTime'] ?? '',
+      doctorFees: map['doctorFees']?.toDouble() ?? 0.0,
+      patientCount: map['patientCount']?.toInt() ?? 0,
       repeatWeekdays: List<String>.from(map['repeatWeekdays']),
     );
   }
@@ -91,7 +103,7 @@ class DocSchedule {
 
   @override
   String toString() {
-    return 'DocSchedule(uiid: $uiid, docId: $docId, clinicId: $clinicId, isActive: $isActive, isRepeat: $isRepeat, startDate: $startDate, endDate: $endDate, startTime: $startTime, endTime: $endTime, repeatWeekdays: $repeatWeekdays)';
+    return 'DocSchedule(uiid: $uiid, docId: $docId, clinicId: $clinicId, isActive: $isActive, isRepeat: $isRepeat, startDate: $startDate, endDate: $endDate, startTime: $startTime, endTime: $endTime, doctorFees: $doctorFees, patientCount: $patientCount, repeatWeekdays: $repeatWeekdays)';
   }
 
   @override
@@ -108,6 +120,8 @@ class DocSchedule {
         other.endDate == endDate &&
         other.startTime == startTime &&
         other.endTime == endTime &&
+        other.doctorFees == doctorFees &&
+        other.patientCount == patientCount &&
         listEquals(other.repeatWeekdays, repeatWeekdays);
   }
 
@@ -122,6 +136,8 @@ class DocSchedule {
         endDate.hashCode ^
         startTime.hashCode ^
         endTime.hashCode ^
+        doctorFees.hashCode ^
+        patientCount.hashCode ^
         repeatWeekdays.hashCode;
   }
 }
