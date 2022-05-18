@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 class Appointment {
+  int sno;
   String userId;
   String doctorId;
   String clinicId;
@@ -16,6 +17,7 @@ class Appointment {
   String? patientName;
   String? patientId;
   Appointment({
+    required this.sno,
     required this.userId,
     required this.doctorId,
     required this.clinicId,
@@ -33,6 +35,7 @@ class Appointment {
   });
 
   Appointment copyWith({
+    int? sno,
     String? userId,
     String? doctorId,
     String? clinicId,
@@ -49,6 +52,7 @@ class Appointment {
     String? patientId,
   }) {
     return Appointment(
+      sno: sno ?? this.sno,
       userId: userId ?? this.userId,
       doctorId: doctorId ?? this.doctorId,
       clinicId: clinicId ?? this.clinicId,
@@ -69,6 +73,7 @@ class Appointment {
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
+    result.addAll({'sno': sno});
     result.addAll({'userId': userId});
     result.addAll({'doctorId': doctorId});
     result.addAll({'clinicId': clinicId});
@@ -105,6 +110,7 @@ class Appointment {
 
   factory Appointment.fromMap(Map<String, dynamic> map) {
     return Appointment(
+      sno: map['sno']?.toInt() ?? 0,
       userId: map['userId'] ?? '',
       doctorId: map['doctorId'] ?? '',
       clinicId: map['clinicId'] ?? '',
@@ -129,7 +135,7 @@ class Appointment {
 
   @override
   String toString() {
-    return 'Appointment(userId: $userId, doctorId: $doctorId, clinicId: $clinicId, scheduleId: $scheduleId, createDate: $createDate, epoch: $epoch, status: $status, bookingDate: $bookingDate, lastActiveEpoch: $lastActiveEpoch, reason: $reason, note: $note, location: $location, patientName: $patientName, patientId: $patientId)';
+    return 'Appointment(sno: $sno, userId: $userId, doctorId: $doctorId, clinicId: $clinicId, scheduleId: $scheduleId, createDate: $createDate, epoch: $epoch, status: $status, bookingDate: $bookingDate, lastActiveEpoch: $lastActiveEpoch, reason: $reason, note: $note, location: $location, patientName: $patientName, patientId: $patientId)';
   }
 
   @override
@@ -137,6 +143,7 @@ class Appointment {
     if (identical(this, other)) return true;
 
     return other is Appointment &&
+        other.sno == sno &&
         other.userId == userId &&
         other.doctorId == doctorId &&
         other.clinicId == clinicId &&
@@ -155,7 +162,8 @@ class Appointment {
 
   @override
   int get hashCode {
-    return userId.hashCode ^
+    return sno.hashCode ^
+        userId.hashCode ^
         doctorId.hashCode ^
         clinicId.hashCode ^
         scheduleId.hashCode ^
