@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 class Patient {
+  int? sno;
   String patientName;
   String? patientId;
   String patientPhone;
@@ -19,6 +20,7 @@ class Patient {
   String? patientPulse;
   String? patientImage;
   Patient({
+    this.sno,
     required this.patientName,
     this.patientId,
     required this.patientPhone,
@@ -39,6 +41,7 @@ class Patient {
   });
 
   Patient copyWith({
+    int? sno,
     String? patientName,
     String? patientId,
     String? patientPhone,
@@ -58,6 +61,7 @@ class Patient {
     String? patientImage,
   }) {
     return Patient(
+      sno: sno ?? this.sno,
       patientName: patientName ?? this.patientName,
       patientId: patientId ?? this.patientId,
       patientPhone: patientPhone ?? this.patientPhone,
@@ -81,6 +85,9 @@ class Patient {
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
+    if (sno != null) {
+      result.addAll({'sno': sno});
+    }
     result.addAll({'patientName': patientName});
     if (patientId != null) {
       result.addAll({'patientId': patientId});
@@ -132,6 +139,7 @@ class Patient {
 
   factory Patient.fromMap(Map<String, dynamic> map) {
     return Patient(
+      sno: map['sno']?.toInt(),
       patientName: map['patientName'] ?? '',
       patientId: map['patientId'],
       patientPhone: map['patientPhone'] ?? '',
@@ -159,7 +167,7 @@ class Patient {
 
   @override
   String toString() {
-    return 'Patient(patientName: $patientName, patientId: $patientId, patientPhone: $patientPhone, patientEmail: $patientEmail, patientAddress: $patientAddress, patientGender: $patientGender, patientDob: $patientDob, patientAge: $patientAge, patientBloodGroup: $patientBloodGroup, patientAllergy: $patientAllergy, patientHistory: $patientHistory, patientWeight: $patientWeight, patientHeight: $patientHeight, patientBmi: $patientBmi, patientBp: $patientBp, patientPulse: $patientPulse, patientImage: $patientImage)';
+    return 'Patient(sno: $sno, patientName: $patientName, patientId: $patientId, patientPhone: $patientPhone, patientEmail: $patientEmail, patientAddress: $patientAddress, patientGender: $patientGender, patientDob: $patientDob, patientAge: $patientAge, patientBloodGroup: $patientBloodGroup, patientAllergy: $patientAllergy, patientHistory: $patientHistory, patientWeight: $patientWeight, patientHeight: $patientHeight, patientBmi: $patientBmi, patientBp: $patientBp, patientPulse: $patientPulse, patientImage: $patientImage)';
   }
 
   @override
@@ -167,6 +175,7 @@ class Patient {
     if (identical(this, other)) return true;
 
     return other is Patient &&
+        other.sno == sno &&
         other.patientName == patientName &&
         other.patientId == patientId &&
         other.patientPhone == patientPhone &&
@@ -188,7 +197,8 @@ class Patient {
 
   @override
   int get hashCode {
-    return patientName.hashCode ^
+    return sno.hashCode ^
+        patientName.hashCode ^
         patientId.hashCode ^
         patientPhone.hashCode ^
         patientEmail.hashCode ^
