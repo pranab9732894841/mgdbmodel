@@ -9,6 +9,8 @@ class Appointment {
   String createDate;
   int epoch;
   String status;
+  int startTimeEpoch;
+  int endTimeEpoch;
   String? bookingDate;
   int? lastActiveEpoch;
   String? reason;
@@ -25,6 +27,8 @@ class Appointment {
     required this.createDate,
     required this.epoch,
     required this.status,
+    required this.startTimeEpoch,
+    required this.endTimeEpoch,
     this.bookingDate,
     this.lastActiveEpoch,
     this.reason,
@@ -43,6 +47,8 @@ class Appointment {
     String? createDate,
     int? epoch,
     String? status,
+    int? startTimeEpoch,
+    int? endTimeEpoch,
     String? bookingDate,
     int? lastActiveEpoch,
     String? reason,
@@ -60,6 +66,8 @@ class Appointment {
       createDate: createDate ?? this.createDate,
       epoch: epoch ?? this.epoch,
       status: status ?? this.status,
+      startTimeEpoch: startTimeEpoch ?? this.startTimeEpoch,
+      endTimeEpoch: endTimeEpoch ?? this.endTimeEpoch,
       bookingDate: bookingDate ?? this.bookingDate,
       lastActiveEpoch: lastActiveEpoch ?? this.lastActiveEpoch,
       reason: reason ?? this.reason,
@@ -83,6 +91,8 @@ class Appointment {
     result.addAll({'createDate': createDate});
     result.addAll({'epoch': epoch});
     result.addAll({'status': status});
+    result.addAll({'startTimeEpoch': startTimeEpoch});
+    result.addAll({'endTimeEpoch': endTimeEpoch});
     if (bookingDate != null) {
       result.addAll({'bookingDate': bookingDate});
     }
@@ -118,6 +128,8 @@ class Appointment {
       createDate: map['createDate'] ?? '',
       epoch: map['epoch']?.toInt() ?? 0,
       status: map['status'] ?? '',
+      startTimeEpoch: map['startTimeEpoch']?.toInt() ?? 0,
+      endTimeEpoch: map['endTimeEpoch']?.toInt() ?? 0,
       bookingDate: map['bookingDate'],
       lastActiveEpoch: map['lastActiveEpoch']?.toInt(),
       reason: map['reason'],
@@ -135,7 +147,7 @@ class Appointment {
 
   @override
   String toString() {
-    return 'Appointment(sno: $sno, userId: $userId, doctorId: $doctorId, clinicId: $clinicId, scheduleId: $scheduleId, createDate: $createDate, epoch: $epoch, status: $status, bookingDate: $bookingDate, lastActiveEpoch: $lastActiveEpoch, reason: $reason, note: $note, location: $location, patientName: $patientName, patientId: $patientId)';
+    return 'Appointment(sno: $sno, userId: $userId, doctorId: $doctorId, clinicId: $clinicId, scheduleId: $scheduleId, createDate: $createDate, epoch: $epoch, status: $status, startTimeEpoch: $startTimeEpoch, endTimeEpoch: $endTimeEpoch, bookingDate: $bookingDate, lastActiveEpoch: $lastActiveEpoch, reason: $reason, note: $note, location: $location, patientName: $patientName, patientId: $patientId)';
   }
 
   @override
@@ -151,6 +163,8 @@ class Appointment {
         other.createDate == createDate &&
         other.epoch == epoch &&
         other.status == status &&
+        other.startTimeEpoch == startTimeEpoch &&
+        other.endTimeEpoch == endTimeEpoch &&
         other.bookingDate == bookingDate &&
         other.lastActiveEpoch == lastActiveEpoch &&
         other.reason == reason &&
@@ -170,6 +184,8 @@ class Appointment {
         createDate.hashCode ^
         epoch.hashCode ^
         status.hashCode ^
+        startTimeEpoch.hashCode ^
+        endTimeEpoch.hashCode ^
         bookingDate.hashCode ^
         lastActiveEpoch.hashCode ^
         reason.hashCode ^
