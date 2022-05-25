@@ -5,11 +5,13 @@ class RewViewModel {
   String? comment;
   String? createdAt;
   String? updatedAt;
+  String? userId;
   RewViewModel({
-    this.value = 0.0,
+    required this.value,
     this.comment,
     this.createdAt,
     this.updatedAt,
+    this.userId,
   });
 
   RewViewModel copyWith({
@@ -17,12 +19,14 @@ class RewViewModel {
     String? comment,
     String? createdAt,
     String? updatedAt,
+    String? userId,
   }) {
     return RewViewModel(
       value: value ?? this.value,
       comment: comment ?? this.comment,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      userId: userId ?? this.userId,
     );
   }
 
@@ -39,6 +43,9 @@ class RewViewModel {
     if (updatedAt != null) {
       result.addAll({'updatedAt': updatedAt});
     }
+    if (userId != null) {
+      result.addAll({'userId': userId});
+    }
 
     return result;
   }
@@ -49,6 +56,7 @@ class RewViewModel {
       comment: map['comment'],
       createdAt: map['createdAt'],
       updatedAt: map['updatedAt'],
+      userId: map['userId'],
     );
   }
 
@@ -59,7 +67,7 @@ class RewViewModel {
 
   @override
   String toString() {
-    return 'RewViewModel(value: $value, comment: $comment, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'RewViewModel(value: $value, comment: $comment, createdAt: $createdAt, updatedAt: $updatedAt, userId: $userId)';
   }
 
   @override
@@ -70,7 +78,8 @@ class RewViewModel {
         other.value == value &&
         other.comment == comment &&
         other.createdAt == createdAt &&
-        other.updatedAt == updatedAt;
+        other.updatedAt == updatedAt &&
+        other.userId == userId;
   }
 
   @override
@@ -78,6 +87,7 @@ class RewViewModel {
     return value.hashCode ^
         comment.hashCode ^
         createdAt.hashCode ^
-        updatedAt.hashCode;
+        updatedAt.hashCode ^
+        userId.hashCode;
   }
 }
